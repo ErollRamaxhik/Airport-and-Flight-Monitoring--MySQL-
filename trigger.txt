@@ -1,0 +1,43 @@
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `My_schema`.`SEAT_RESERVATION_BEFORE_INSERT`
+BEFORE INSERT ON `My_schema`.`SEAT_RESERVATION`
+FOR EACH ROW
+BEGIN
+	IF ( (SELECT Number_of_available_seats 
+			FROM LEG_INSTANCE
+				WHERE NEW.Leg_number = LEG_INSTANCE.Leg_number) = 0 ) THEN
+	INSERT INTO SEAT_RESERVATION(Flight_number,Leg_number,Leg_date,Seat_number,Customer_phone,Check_in)
+    VALUES(NEW.Flight_number,NEW.Leg_number,NEW.Leg_date,NEW.Seat_number,NEW.Customer_name,NEW.Customer_phone,'0');
+	END IF;
+END
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `My_schema`.`SEAT_RESERVATION_AFTER_INSERT`
+AFTER INSERT ON `My_schema`.`SEAT_RESERVATION`
+FOR EACH ROW
+BEGIN
+	IF(New.Check_in=1)
+    then
+    Insert into FFC(FLight_number,seat_number,Customer_phone,Gained_miles) Values(NEW.Flight_number,NEW.seat_number,NEW.Customer_phone,(Select (Amount/5) from fare where New.FLight_number=fare.Flight_number));
+    END IF;
+	
+END
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `My_schema`.`SEAT_RESERVATION_AFTER_DELETE`
+AFTER DELETE ON `My_schema`.`SEAT_RESERVATION`
+FOR EACH ROW
+BEGIN
+	UPDATE LEG_INSTANCE SET LEG_INSTANCE.Number_of_available_seats = LEG_INSTANCE.Number_of_available_seats + 1
+    WHERE LEG_INSTANCE.Leg_number = OLD.Leg_number ;
+END
+
+CREATE DEFINER = CURRENT_USER TRIGGER `My_schema`.`FFC_AFTER_INSERT` AFTER INSERT ON `FFC` FOR EACH ROW
+BEGIN
+	Update Customer
+    set Total_miles =Total_miles + ffc.Gained_miles
+    where FFC.CUstomer_phone=Customer.Customer_phone;
+END

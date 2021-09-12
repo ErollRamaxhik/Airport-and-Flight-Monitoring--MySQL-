@@ -1,0 +1,10 @@
+12	Manush	200	Turkish Arilines
+22	Mikail	150	Emirates
+32	Ses	300	Emirates
+42	Kartal	160	Pegasus
+52	Avci	150	Turkish Airlines
+62	Sanat	200	Canada Airlines
+72	Vurucu	160	Turkish Airlines
+82	Sinti	200	Canada Airlines
+92	Kus	100	Pegasus
+16	Arabic	200	Emirates

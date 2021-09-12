@@ -1,0 +1,10 @@
+123	Sunday
+232	Monday
+343	Thursday
+456	Wednesday
+576	Friday
+634	Saturday
+754	Sunday
+865	Tuesday
+134	Thursday
+106	Friday

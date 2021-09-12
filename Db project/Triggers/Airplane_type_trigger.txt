@@ -1,0 +1,12 @@
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `My_schema`.`AIRPLANE_BEFORE_INSERT`
+BEFORE INSERT ON `My_schema`.`AIRPLANE`
+FOR EACH ROW
+BEGIN
+	IF ( ( SELECT Max_seats 
+    FROM AIRPLANE_TYPE 
+    WHERE NEW.Airplane_type = AIRPLANE_TYPE.Airplane_type_name) < NEW.Total_number_of_seats) THEN
+        INSERT INTO AIRPLANE(Airplane_id,Total_number_of_seats,Airplane_type) VALUES (NEW.Airplane_id,NEW.Total_number_of_seats,NEW.Airplane_type);
+	END IF;
+END

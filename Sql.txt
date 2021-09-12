@@ -1,0 +1,74 @@
+/* 3x2
+Select  Company
+From AIRPLANE_TYPE , AIRPLANE
+Where Max_seats <= 150 and Airplane_type_name = Airplane_type;
+
+Select Flight_number
+From FLIGHT , FARE
+Where FLIGHT.Flight_number = FARE.Fligt_number and Amount > 500; 
+
+Select Flight_number , Departure_airport_code
+From FLIGHT_LEG , AIRPORT
+Where Departure_airport_code = Airport_code and City = 'IZMIR';
+
+/* 4x3
+Select Company
+From AIRPLANE_TYPE , CAN_LAND , AIRPORT
+Where AIRPLANE_TYPE.Airplane_type_name = CAN_LAND.Airplane_type_name 
+and  CAN_LAND.Airport_code = AIRPORT.Airport_code and City = 'Istanbul';
+
+Select CUSTOMERS.Name , Leg_date
+From CUSTOMERS , SEAT_RESERVATION , LEG_INSTANCE
+Where LEG_INSTANCE.Flight_number =  SEAT_RESERVATION.Flight_number and 
+SEAT_RESERVATION.Customer_phone = CUSTOMERS.Customer_phone and Leg_date = '03.11.2018';
+
+Select Company , Max_seats
+From AIRPLANE_TYPE , AIRPLANE , LEG_INSTANCE
+Where Max_Seats > 200 and Airplane_type_name = Airplane_type and 
+LEG_INSTANCE.Departure_airport_code = '???'; <-------- Value ekle !!!
+
+Select Scheduled_arrival_time
+From FLIGHT_LEG , FLIGHT , FARE
+Where FLIGHT_LEG.Flight_number = FLIGHT.Flight_number and 
+FLIGHT.Flight_number = FARE.Flight_number and Fare_code = '??????????'; <------------- Value ekle !!!
+
+/* 3x4
+
+
+/* Nested Query
+Select Name
+From CUSTOMER
+Where Customer_phone = (Select Customer_phone
+		From SEAT_RESERVATION
+		Where Flight_number = (Select Flight_number
+				From LEG_INSTANCE
+				Where Airplane_id = '1'));
+
+/* Exists and Not Exists 
+Select Customer_name
+From CUSTOMERS
+Where EXISTS
+(Select Customer_phone From SEAT_RESERVATION Where Customer_phone = CUSTOMER.Customer_phone and Seat_number > 20);
+
+Select Customer_name
+From CUSTOMERS
+Where NOT EXISTS
+(Select SEAT.Customer_phone);
+
+
+/* Left
+Select Airline, Amount
+From FLIGHT,FARE
+Left Join Orders On FLIGHT.Flight_number = FARE.FLight_number
+Order By FLIGHT.Airline;
+/* Right 
+Select City, Name, Leg_number
+From AIRPORT , FLIGHT_LEG
+Right Join AIRPORT On AIRPORT.Airport_code = FLIGHT_LEG.Departure_airport_code
+Order By Airport_code;
+/* Full Outer Join
+
+
+
+
+

@@ -1,0 +1,4 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `mydb`.`flight_leg_AFTER_INSERT` AFTER INSERT ON `flight_leg` FOR EACH ROW
+BEGIN
+insert into LEG_INSTANCE(Flight_number,Leg_number,Date_) Values(New.Flight_number,New.Leg_number,CURTIME());
+END

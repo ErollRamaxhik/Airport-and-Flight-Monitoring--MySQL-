@@ -1,0 +1,11 @@
+100	Izmir	Adnan Menderes	Asia
+110	Ankara	Esenboga	Asia
+120	Erzurum	Erz Airport	Asia
+130	Istanbul	3.Airport	Island
+140	Istanbul	Sabiha Gokcen	Asia
+150	Istanbul	Ataturk	Europe
+160	Pristina	Adem Jashari	Balkan
+170	Belgrad	Nikola Tesla	Balkan
+180	Toronto	Toronto Airport	America
+190	Munih	Munchen Airport	Europe
+200	London	London City A.	Europe
